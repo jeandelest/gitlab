@@ -60,9 +60,13 @@ cp .env.example .env
 Dans ton GitLab :
 
 Va dans Admin Area (ou projet spécifique)
+
 Puis :
+
 Settings > CI/CD
+
 Section Runners
+
 Copie le registration token
 
 ---
