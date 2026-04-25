@@ -8,3 +8,18 @@ services:
     volumes:
       - ./config:/etc/gitlab-runner
       - /var/run/docker.sock:/var/run/docker.sock
+    command: >
+      bash -c "
+        if [ ! -f /etc/gitlab-runner/config.toml ]; then
+          gitlab-runner register --non-interactive \
+            --url $GITLAB_URL \
+            --registration-token $REGISTRATION_TOKEN \
+            --executor docker \
+            --description $RUNNER_NAME \
+            --tag-list $RUNNER_TAGS \
+            --docker-image alpine:latest \
+            --run-untagged=true \
+            --locked=false;
+        fi;
+        gitlab-runner run
+      "
