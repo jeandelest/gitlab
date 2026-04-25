@@ -1,6 +1,6 @@
 services:
   gitlab-runner:
-    image: gitlab/gitlab-runner:16-alpine
+    image: gitlab/gitlab-runner:latest
     container_name: gitlab-runner
     restart: always
     env_file:
@@ -31,11 +31,12 @@ services:
         if [ ! -f /etc/gitlab-runner/config.toml ]; then
           gitlab-runner register --non-interactive \
             --url $GITLAB_URL \
-            --registration-token $REGISTRATION_TOKEN \
+            --token $RUNNER_TOKEN \
             --executor docker \
             --description $RUNNER_NAME \
-            --tag-list $RUNNER_TAGS \
-            --docker-image alpine:latest \
+            --docker-image docker:26-dind \
+            --docker-privileged=true \
+            --docker-volumes '/var/run/docker.sock:/var/run/docker.sock' \
             --run-untagged=true \
             --locked=false;
         fi;
