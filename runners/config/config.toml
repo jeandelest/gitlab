@@ -7,6 +7,7 @@ check_interval = 0
   token = "REPLACED_AFTER_REGISTER"
   executor = "docker"
   output_limit = 4096
+  request_concurrency = 4
 
   [runners.docker]
     image = "docker:26-dind"
