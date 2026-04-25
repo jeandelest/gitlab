@@ -55,7 +55,15 @@ gitlab-runner/
 cp .env.example .env
 ```
 
-⚠️ Le token d’enregistrement est fourni par GitLab (non versionné).
+### Récupérer le token d’enregistrement
+
+Dans ton GitLab :
+
+Va dans Admin Area (ou projet spécifique)
+Puis :
+Settings > CI/CD
+Section Runners
+Copie le registration token
 
 ---
 
