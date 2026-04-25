@@ -1,0 +1,16 @@
+concurrent = 1
+check_interval = 0
+
+[[runners]]
+  name = "docker-runner"
+  url = "http://gitlab"
+  token = "REPLACED_AFTER_REGISTER"
+  executor = "docker"
+
+  [runners.docker]
+    image = "alpine:latest"
+    privileged = true
+    volumes = ["/var/run/docker.sock:/var/run/docker.sock", "/cache"]
+
+  [runners.cache]
+    MaxUploadedArchiveSize = 0
