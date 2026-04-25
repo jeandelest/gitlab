@@ -1,6 +1,6 @@
 services:
   gitlab-runner:
-    image: gitlab/gitlab-runner:latest
+    image: gitlab/gitlab-runner:16-alpine
     container_name: gitlab-runner
     restart: always
     env_file:
@@ -8,6 +8,24 @@ services:
     volumes:
       - ./config:/etc/gitlab-runner
       - /var/run/docker.sock:/var/run/docker.sock
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - NET_RAW
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1G
+        reservations:
+          cpus: '1'
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "gitlab-runner", "verify"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     command: >
       bash -c "
         if [ ! -f /etc/gitlab-runner/config.toml ]; then

@@ -3,14 +3,17 @@ check_interval = 0
 
 [[runners]]
   name = "docker-runner"
-  url = "http://gitlab"
+  url = "https://gitlab"
   token = "REPLACED_AFTER_REGISTER"
   executor = "docker"
+  output_limit = 4096
 
   [runners.docker]
-    image = "alpine:latest"
+    image = "docker:26-dind"
     privileged = true
+    pull_policy = "if-not-present"
     volumes = ["/var/run/docker.sock:/var/run/docker.sock", "/cache"]
+    disable_entrypoint_overwrite = false
 
   [runners.cache]
     MaxUploadedArchiveSize = 0
